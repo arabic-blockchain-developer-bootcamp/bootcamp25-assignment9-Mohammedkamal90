@@ -12,19 +12,20 @@ contract Assignment9Test is Test {
     }
 
     function testFactoryPattern() public {
-        assignment.createContract();
-        address deployed = assignment.deployedContracts(0);
+    assignment.createContract(100); 
+    address deployed = assignment.deployedContracts(0);
 
-        SimpleContract simple = SimpleContract(deployed);
-        simple.setValue(42);
+    SimpleContract simple = SimpleContract(deployed);
+    simple.setValue(42);
 
-        uint256 value = simple.value();
-        assertEq(value, 42, "Value should be 42");
-    }
+    uint256 value = simple.value();
+    assertEq(value, 42, "Value should be 42");
+}
 
-    function testOnlyOwnerCanCreateContract() public {
-        vm.prank(address(0x1234));
-        vm.expectRevert();
-        assignment.createContract();
-    }
+function testOnlyOwnerCanCreateContract() public {
+    vm.prank(address(0x1234));
+    vm.expectRevert();
+    assignment.createContract(100); 
+}
+
 }
